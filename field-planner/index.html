@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Планировщик выездных работ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Планировщик выездных работ</h1>
+    <nav aria-label="Основная навигация">
+      <ul class="nav">
+        <li><a href="#planForm">План</a></li>
+        <li><a href="#checklistSection">Чек-лист</a></li>
+        <li><a href="#summarySection">Сводка</a></li>
+        <li><a href="#sourcesSection">Источники</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="card" aria-labelledby="formHeading">
+      <h2 id="formHeading">Параметры плана</h2>
+      <form id="planForm" novalidate>
+        <div class="field">
+          <label for="planTitle">Название плана <span aria-hidden="true">*</span></label>
+          <input type="text" id="planTitle" name="title" required autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="planPlace">Место</label>
+          <input type="text" id="planPlace" name="place" value="Зелёная зона" readonly>
+        </div>
+
+        <div class="field">
+          <label for="planDate">Дата <span aria-hidden="true">*</span></label>
+          <input type="date" id="planDate" name="date" required>
+        </div>
+
+        <div class="field">
+          <label for="workType">Вид работ</label>
+          <select id="workType" name="workType">
+            <option value="green">Обследование зелёной зоны</option>
+            <option value="water">Наблюдение у водоёма</option>
+          </select>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="nearWater" name="nearWater">
+          <label for="nearWater">Рядом есть водоём</label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Создать план</button>
+          <button type="button" id="resetFormBtn" class="btn-secondary">Сбросить форму</button>
+        </div>
+      </form>
+      <p id="formError" class="error" role="alert" hidden></p>
+    </section>
+
+    <section class="card" id="currentPlanCard" aria-labelledby="currentPlanHeading" hidden>
+      <h2 id="currentPlanHeading">Текущий план</h2>
+      <div id="currentPlanContent"></div>
+    </section>
+
+    <section class="card" id="monitoringSection" aria-labelledby="monitoringHeading">
+      <h2 id="monitoringHeading">Мониторинг</h2>
+      <p id="monitoringMessage">API ещё не подключён</p>
+    </section>
+
+    <section class="card" id="checklistSection" aria-labelledby="checklistHeading">
+      <h2 id="checklistHeading">Чек-лист подготовки</h2>
+      <p class="hint">Отметьте выполненные пункты. Скрытые пункты не учитываются в сводке.</p>
+      <ul id="checklist" class="checklist"></ul>
+    </section>
+
+    <section class="card" id="summarySection" aria-labelledby="summaryHeading">
+      <h2 id="summaryHeading">Сводка</h2>
+      <div id="summaryContent" aria-live="polite"></div>
+    </section>
+
+    <section class="card" id="sourcesSection" aria-labelledby="sourcesHeading">
+      <h2 id="sourcesHeading">Источники</h2>
+      <div id="sourcesList"></div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
